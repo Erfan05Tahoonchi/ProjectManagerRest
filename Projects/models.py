@@ -17,7 +17,7 @@ class Project(models.Model):
     description = models.TextField()
     color = models.CharField(max_length=6, choices=COLOR_CHOICES)
     image = models.ImageField(upload_to='projects/project/',
-                              default='projects/default/project_d.png')
+                              default='projects/default/project_default.jpg')
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     status = models.BooleanField(default=False)
@@ -42,7 +42,7 @@ class Task(models.Model):
     description = models.TextField()
     color = models.CharField(max_length=6, choices=COLOR_CHOICES)
     image = models.ImageField(upload_to='projects/task/',
-                              default='projects/default/project_d.png')
+                              default='projects/default/project_default.jpg')
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     status = models.BooleanField(default=False)
@@ -67,7 +67,7 @@ class SubTask(models.Model):
     description = models.TextField()
     color = models.CharField(max_length=6, choices=COLOR_CHOICES)
     image = models.ImageField(upload_to='projects/subtask/',
-                              default='projects/default/project_d.png')
+                              default='projects/default/project_default.jpg')
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     status = models.BooleanField(default=False)
