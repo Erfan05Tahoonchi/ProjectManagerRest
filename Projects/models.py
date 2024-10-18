@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.contrib.contenttypes.fields import GenericRelation
+from django.contrib.contenttypes.models import ContentType
+from Financial.models import FinancialRecordsSpent,FinancialRecordsIncome
 
 class Project(models.Model):
     COLOR_CHOICES = (
@@ -22,9 +24,15 @@ class Project(models.Model):
     end_date = models.DateField(null=True, blank=True)
     status = models.BooleanField(default=False)
     budget = models.PositiveBigIntegerField(null=True, blank=True)
+    financial_spent_object_type = GenericRelation(FinancialRecordsSpent,related_name='project_financial_records_spent')
+    financial_income_object_type = GenericRelation(FinancialRecordsIncome,related_name='project_financial_records_income')
 
     def __str__(self):
         return self.title
+
+    @property
+    def content_id(self):
+        return ContentType.objects.get_for_model(self).id
 
 
 class Task(models.Model):
@@ -47,9 +55,15 @@ class Task(models.Model):
     end_date = models.DateField(null=True, blank=True)
     status = models.BooleanField(default=False)
     budget = models.PositiveBigIntegerField(null=True, blank=True)
+    financial_spent_object_type = GenericRelation(FinancialRecordsSpent,related_name='task_financial_records_spent')
+    financial_income_object_type = GenericRelation(FinancialRecordsIncome,related_name='task_financial_records_income')
 
     def __str__(self):
         return self.title
+
+    @property
+    def content_id(self):
+        return ContentType.objects.get_for_model(self).id
 
 
 class SubTask(models.Model):
@@ -72,6 +86,12 @@ class SubTask(models.Model):
     end_date = models.DateField(null=True, blank=True)
     status = models.BooleanField(default=False)
     budget = models.PositiveBigIntegerField(null=True, blank=True)
+    financial_spent_object_type = GenericRelation(FinancialRecordsSpent,related_name='project_financial_records_spent')
+    financial_income_object_type = GenericRelation(FinancialRecordsIncome,related_name='project_financial_records_income')
 
     def __str__(self):
         return self.title
+
+    @property
+    def content_id(self):
+        return ContentType.objects.get_for_model(self).id
